@@ -1,8 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import Index from './Components/Index/Index';
 import SideBar from './Components/SideBar/SideBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from './Components/Header/Header';
+import AddCategory from './Components/Products/AddCategory';
+import AddProducts from './Components/Products/AddProducts';
 
 function App() {
   return (
@@ -17,9 +19,14 @@ function App() {
         data-header-position="fixed"
       >
         <SideBar />
+        <div className="body-wrapper">
+        <Header />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/addCategory" element={<AddCategory />} />
+          <Route path="/addProducts" element={<AddProducts />} />
         </Routes>
+      </div>
       </div>
     </BrowserRouter>
   );

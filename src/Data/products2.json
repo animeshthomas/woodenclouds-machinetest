@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "productName": "Jhon Miller Shirt",
+        "product": 10,
+        "createdBy": "John",
+        "createdDate": "22 Jun 2023",
+        "status": "Inactive"
+    },
+    {
+        "id": 2,
+        "productName": "Jhon Miller Shirt",
+        "product": 10,
+        "createdBy": "John",
+        "createdDate": "22 Jun 2023",
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "productName": "Jhon Miller Shirt",
+        "product": 2,
+        "createdBy": "John",
+        "createdDate": "22 Jun 2023",
+        "status": "Active"
+    },
+    {
+        "id": 4,
+        "productName": "Jhon Miller Shirt",
+        "product": 3,
+        "createdBy": "John",
+        "createdDate": "22 Jun 2023",
+        "status": "Active"
+    }
+]
