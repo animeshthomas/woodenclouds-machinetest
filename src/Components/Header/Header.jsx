@@ -26,7 +26,7 @@ const Header = () => {
           </ul>
           <div className="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <Link to="/addProducts" className="btn btn-primary">Add Products</Link>
+              <Link to="/addCategory" className="btn btn-primary">Add Products</Link>
               &nbsp; &nbsp; &nbsp;
               <li className="nav-item dropdown d-flex align-items-center">
                 <img

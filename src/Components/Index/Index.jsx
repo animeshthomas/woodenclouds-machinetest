@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import productsData from '../../Data/products2.json'; 
 import productsImage from '../../Data/image.png';
+import { Dropdown, Button, Form, Table } from 'react-bootstrap';
 
 const Index = () => {
   // State to hold products
@@ -11,11 +12,15 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <h1>Products</h1>
+    <div className="container-fluid p-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1>Products</h1>
+        <Button variant="primary">+ Add Products</Button>
+      </div>
+      
       <div className="row">
         <div className="col-md-12">
-          <table className="table table-striped table-hover">
+          <Table striped hover>
             <thead>
               <tr>
                 <th>Sl No</th>
@@ -38,6 +43,7 @@ const Index = () => {
                       alt={product.productName}
                       className="img-thumbnail"
                       width="50"
+                      height="50"
                     />
                   </td>
                   <td>{product.productName}</td>
@@ -45,19 +51,43 @@ const Index = () => {
                   <td>{product.createdBy}</td>
                   <td>{product.createdDate}</td>
                   <td>
-                    <span className={`badge ${product.status === "Active" ? "bg-success" : "bg-danger"}`}>
-                      {product.status}
-                    </span>
+                    <Form.Check 
+                      type="switch" 
+                      id={`status-switch-${product.id}`} 
+                      label=""
+                      defaultChecked={product.status === "Active"} 
+                    />
                   </td>
                   <td>
-                    <button className="btn btn-primary btn-sm">View</button>
-                    &nbsp;
-                    <button className="btn btn-secondary btn-sm">Edit</button>
+                    <Dropdown>
+                      <Dropdown.Toggle variant="light" id="dropdown-basic">
+                        <i className="bi bi-three-dots-vertical"></i>
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#/view">View</Dropdown.Item>
+                        <Dropdown.Item href="#/edit">Edit</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
+          
+          {/* Pagination Section */}
+          <div className="d-flex justify-content-between align-items-center mt-4">
+            <p>Showing 1 to 5 of 710 entries</p>
+            <nav>
+              <ul className="pagination">
+                <li className="page-item"><a className="page-link" href="#">1</a></li>
+                <li className="page-item"><a className="page-link" href="#">2</a></li>
+                <li className="page-item"><a className="page-link" href="#">3</a></li>
+                <li className="page-item"><a className="page-link" href="#">4</a></li>
+                <li className="page-item"><a className="page-link" href="#">5</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </div>
