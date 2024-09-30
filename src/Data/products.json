@@ -1,0 +1,161 @@
+{
+    "category": "electronics",
+    "products": [
+      {
+        "name": "Iphone 16 Pro Max",
+        "related_product_name": "iphone 16 pro max",
+        "product_type": "normal_product",
+        "product_description": "iphone 16 pro max 256 gb black",
+        "product_spec": "256 GB ROM with 16 GB RAM",
+        "brand_id": "brand_id_12345",
+        "product_marketing": "popular",
+        "product_sku": "ABC123098XYZ",
+        "warranty": "1_year",
+        "return_in": "7_days",
+        "actual_price": "1499",
+        "display_price": "1399",
+        "referral_amount": "10",
+        "cashback_amount": "99",
+        "hsn_code": "876543212345678",
+        "gst": "100",
+        "weight": "2",
+        "length": "80",
+        "width": "100",
+        "attributes": {
+          "display_name": "SIZE",
+          "attributes": [
+            {
+              "attribute_id": "small_id",
+              "quantity": "100",
+              "sku": "asdfghjkpoiuytrewq"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Samsung Galaxy S30",
+        "related_product_name": "samsung galaxy s30",
+        "product_type": "normal_product",
+        "product_description": "Samsung Galaxy S30 512 gb blue",
+        "product_spec": "512 GB ROM with 18 GB RAM",
+        "brand_id": "brand_id_54321",
+        "product_marketing": "new_arrival",
+        "product_sku": "XYZ098123ABC",
+        "warranty": "2_year",
+        "return_in": "10_days",
+        "actual_price": "1599",
+        "display_price": "1499",
+        "referral_amount": "20",
+        "cashback_amount": "150",
+        "hsn_code": "876543211234567",
+        "gst": "150",
+        "weight": "1.9",
+        "length": "78",
+        "width": "98",
+        "attributes": {
+          "display_name": "SIZE",
+          "attributes": [
+            {
+              "attribute_id": "medium_id",
+              "quantity": "200",
+              "sku": "qwertyuiopasdfghjkl"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Google Pixel 9",
+        "related_product_name": "google pixel 9",
+        "product_type": "normal_product",
+        "product_description": "Google Pixel 9 128 gb white",
+        "product_spec": "128 GB ROM with 12 GB RAM",
+        "brand_id": "brand_id_67890",
+        "product_marketing": "featured",
+        "product_sku": "LMN456789PQR",
+        "warranty": "1_year",
+        "return_in": "5_days",
+        "actual_price": "1299",
+        "display_price": "1199",
+        "referral_amount": "15",
+        "cashback_amount": "80",
+        "hsn_code": "876543219876543",
+        "gst": "120",
+        "weight": "1.8",
+        "length": "76",
+        "width": "96",
+        "attributes": {
+          "display_name": "SIZE",
+          "attributes": [
+            {
+              "attribute_id": "large_id",
+              "quantity": "150",
+              "sku": "zxcvbnmasdfghjklqwe"
+            }
+          ]
+        }
+      },
+      {
+        "name": "OnePlus 11 Pro",
+        "related_product_name": "oneplus 11 pro",
+        "product_type": "normal_product",
+        "product_description": "OnePlus 11 Pro 256 gb green",
+        "product_spec": "256 GB ROM with 16 GB RAM",
+        "brand_id": "brand_id_11111",
+        "product_marketing": "popular",
+        "product_sku": "OPQ123456RST",
+        "warranty": "1_year",
+        "return_in": "7_days",
+        "actual_price": "1399",
+        "display_price": "1299",
+        "referral_amount": "12",
+        "cashback_amount": "90",
+        "hsn_code": "876543217654321",
+        "gst": "110",
+        "weight": "2.1",
+        "length": "79",
+        "width": "99",
+        "attributes": {
+          "display_name": "SIZE",
+          "attributes": [
+            {
+              "attribute_id": "extra_large_id",
+              "quantity": "80",
+              "sku": "mnbvcxzasdfghjklpoi"
+            }
+          ]
+        }
+      },
+      {
+        "name": "Xiaomi Mi 13 Ultra",
+        "related_product_name": "xiaomi mi 13 ultra",
+        "product_type": "normal_product",
+        "product_description": "Xiaomi Mi 13 Ultra 512 gb black",
+        "product_spec": "512 GB ROM with 18 GB RAM",
+        "brand_id": "brand_id_22222",
+        "product_marketing": "bestseller",
+        "product_sku": "STU654321VWX",
+        "warranty": "1_year",
+        "return_in": "8_days",
+        "actual_price": "1699",
+        "display_price": "1599",
+        "referral_amount": "25",
+        "cashback_amount": "120",
+        "hsn_code": "876543218765432",
+        "gst": "180",
+        "weight": "2.3",
+        "length": "81",
+        "width": "101",
+        "attributes": {
+          "display_name": "SIZE",
+          "attributes": [
+            {
+              "attribute_id": "medium_id",
+              "quantity": "250",
+              "sku": "poiuytrewqasdfghjkl"
+            }
+          ]
+        }
+      }
+    ]
+  }
+  

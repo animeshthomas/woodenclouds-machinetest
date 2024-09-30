@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { NavLink, useLocation } from "react-router-dom";
 
 const SideBar = () => {
+  const location = useLocation(); // Get the current location
+
   return (
     <div>
       <aside className="left-sidebar">
@@ -17,106 +19,174 @@ const SideBar = () => {
           </div>
           {/* Sidebar navigation */}
           <nav className="sidebar-nav scroll-sidebar" data-simplebar>
-            <ul id="sidebarnav">
+            <ul className="sidebarnav">
               <li className="nav-small-cap">
                 <i className="ti ti-dots nav-small-cap-icon fs-4" />
                 <span className="hide-menu">ADMIN</span>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/" aria-expanded="false">
+                <NavLink
+                  exact
+                  className="sidebar-link"
+                  to="/"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/"}
+                >
                   <span>
                     <i className="ti ti-layout-dashboard" />
                   </span>
                   <span className="hide-menu">Dashboard</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/orders" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/orders"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/orders"}
+                >
                   <span>
                     <i className="ti ti-shopping-cart" />
                   </span>
                   <span className="hide-menu">Orders</span>
-                </Link>
+                </NavLink>
               </li>
             </ul>
-            <ul id="sidebarnav">
+            <ul className="sidebarnav">
               <li className="nav-small-cap">
                 <i className="ti ti-dots nav-small-cap-icon fs-4" />
                 <span className="hide-menu">OneRupee</span>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/attributes" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/attributes"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/attributes"}
+                >
                   <span>
-                    <i className="ti ti-tag" /> {/* Attributes */}
+                    <i className="ti ti-tag" />
                   </span>
                   <span className="hide-menu">Attributes</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/products" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/products"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/products"}
+                >
                   <span>
-                    <i className="ti ti-package" /> {/* Products */}
+                    <i className="ti ti-package" />
                   </span>
                   <span className="hide-menu">Products</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/inventory" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/inventory"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/inventory"}
+                >
                   <span>
-                    <i className="ti ti-clipboard" /> {/* Inventory */}
+                    <i className="ti ti-clipboard" />
                   </span>
                   <span className="hide-menu">Inventory</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/account" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/account"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/account"}
+                >
                   <span>
-                    <i className="ti ti-user" /> {/* Account */}
+                    <i className="ti ti-user" />
                   </span>
                   <span className="hide-menu">Account</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/brands" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/brands"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/brands"}
+                >
                   <span>
-                    <i className="ti ti-star" /> {/* Brands */}
+                    <i className="ti ti-star" />
                   </span>
                   <span className="hide-menu">Brands</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/store" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/store"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/store"}
+                >
                   <span>
-                    <i className="ti ti-shopping-cart" /> {/* Store */}
+                    <i className="ti ti-shopping-cart" />
                   </span>
                   <span className="hide-menu">Store</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/marketing" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/marketing"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/marketing"}
+                >
                   <span>
-                    <i className="ti ti-rocket" /> {/* Marketing */}
+                    <i className="ti ti-rocket" />
                   </span>
                   <span className="hide-menu">Marketing</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/user-role" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/user-role"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/user-role"}
+                >
                   <span>
-                    <i className="ti ti-users" /> {/* User Role */}
+                    <i className="ti ti-users" />
                   </span>
                   <span className="hide-menu">User Role</span>
-                </Link>
+                </NavLink>
               </li>
               <li className="sidebar-item">
-                <Link className="sidebar-link" to="/customers" aria-expanded="false">
+                <NavLink
+                  className="sidebar-link"
+                  to="/customers"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/customers"}
+                >
                   <span>
-                    <i className="ti ti-user-check" /> {/* Customers */}
+                    <i className="ti ti-user-check" />
                   </span>
                   <span className="hide-menu">Customers</span>
-                </Link>
+                </NavLink>
               </li>
-              {/* Add more sidebar items as needed */}
+              <li className="sidebar-item">
+                <NavLink
+                  className="sidebar-link"
+                  to="/settings"
+                  aria-expanded="false"
+                  isActive={() => location.pathname === "/settings"}
+                >
+                  <span>
+                    <i className="ti ti-settings" />
+                  </span>
+                  <span className="hide-menu">Settings</span>
+                </NavLink>
+              </li>
             </ul>
           </nav>
           {/* End Sidebar navigation */}
