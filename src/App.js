@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import AddCategory from './Components/Products/AddCategory';
 import AddProducts from './Components/Products/AddProducts';
+import NotFound from './Components/NotFound';
 
 function App() {
   return (
@@ -20,13 +21,14 @@ function App() {
       >
         <SideBar />
         <div className="body-wrapper">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/addCategory" element={<AddCategory />} />
-          <Route path="/addProducts" element={<AddProducts />} />
-        </Routes>
-      </div>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/addCategory" element={<AddCategory />} />
+            <Route path="/addProducts" element={<AddProducts />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );
