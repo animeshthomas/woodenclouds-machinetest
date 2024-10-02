@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, Form, Row, Col, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AddProducts = () => {
+  const location = useLocation(); // Access the location
+  const categories = location.state; // Extract categories from the state
   const [products, setProducts] = useState([
     {
       productName: "",
@@ -10,11 +12,11 @@ const AddProducts = () => {
       productType: "",
       productDescription: "",
       productSpec: "",
-      brand: "Adidas",
-      productMarketing: "Popular",
+      brand: "",
+      productMarketing: "",
       productSKU: "",
-      warranty: "1 Year",
-      returnIn: "7 Days",
+      warranty: "",
+      returnIn: "",
       actualPrice: "",
       referralAmount: "",
       cashbackAmount: "",
@@ -117,11 +119,58 @@ const AddProducts = () => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      console.log("Form Submitted", products);
+        const formattedData = {
+            category: categories.category1, // Access category1 from the passed state
+            products: products.map((product) => ({
+                name: product.productName,
+                related_product_name: product.relatedProductName,
+                product_type: product.productType,
+                product_description: product.productDescription,
+                product_spec: product.productSpec,
+                brand_id: product.brand, // Assuming brand is the brand_id
+                product_marketing: product.productMarketing,
+                product_sku: product.productSKU,
+                warranty: product.warranty,
+                return_in: product.returnIn,
+                actual_price: product.actualPrice,
+                display_price: product.displayPrice,
+                referral_amount: product.referralAmount,
+                cashback_amount: product.cashbackAmount,
+                hsn_code: product.hsncode,
+                gst: product.gst,
+                weight: product.weight,
+                length: product.length,
+                width: product.width,
+                attributes: {
+                    display_name: "SIZE", // Replace with actual display name if different
+                    attributes: product.selectedSizes.map((size, index) => ({
+                        attribute_id: size, // Replace with actual attribute IDs
+                        quantity: product.attributes[index]?.quantity || "",
+                        sku: product.attributes[index]?.sku || "",
+                    })),
+                },
+            })),
+        };
+
+        console.log("Formatted Data:", formattedData);
+
+        // Create a JSON file and trigger a download
+        const jsonString = JSON.stringify(formattedData, null, 2); // Pretty-printing JSON
+        const blob = new Blob([jsonString], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "products.json"; // Name of the file
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url); // Clean up
     } else {
-      console.log("Form has errors");
+        console.log("Form has errors");
     }
-  };
+};
+
   const handleToggleAttributes = (index) => {
     const updatedProducts = [...products];
     updatedProducts[index].hasAttributes = !updatedProducts[index].hasAttributes;
@@ -168,11 +217,11 @@ const AddProducts = () => {
         productType: "",
         productDescription: "",
         productSpec: "",
-        brand: "Adidas",
+        brand: "",
         productMarketing: "",
         productSKU: "",
-        warranty: "1 Year",
-        returnIn: "7 Days",
+        warranty: "",
+        returnIn: "",
         actualPrice: "",
         referralAmount: "",
         cashbackAmount: "",
@@ -617,6 +666,8 @@ const AddProducts = () => {
                   onChange={(e) => handleChange(activeProductIndex, e)}
                   isInvalid={!!errors.weight}
                 >
+
+                  <option value=""></option>
                   <option value="2 kg">2 kg</option>
                   <option value="3 kg">3 kg</option>
                 </Form.Select>
