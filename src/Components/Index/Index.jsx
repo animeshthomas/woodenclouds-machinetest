@@ -1,26 +1,39 @@
 import React, { useEffect, useState } from "react";
 import productsData from '../../Data/products2.json'; 
 import productsImage from '../../Data/image.png';
-import { Dropdown, Button, Form, Table } from 'react-bootstrap';
+import { Dropdown, Button, Form, Table, Pagination } from 'react-bootstrap';
 
 const Index = () => {
-  // State to hold products
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     setProducts(productsData);
   }, []);
 
+  // Calculate current products to display
+  const indexOfLastProduct = currentPage * itemsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  // Handle page change
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
   return (
     <div className="container-fluid p-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1>Products</h1>
-        <Button variant="primary">+ Add Products</Button>
+        <Button variant="primary" className="btn-add-product">+ Add Products</Button>
       </div>
       
       <div className="row">
         <div className="col-md-12">
-          <Table striped hover>
+          <Table striped hover className="product-table">
             <thead>
               <tr>
                 <th>Sl No</th>
@@ -34,9 +47,9 @@ const Index = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index) => (
+              {currentProducts.map((product, index) => (
                 <tr key={product.id}>
-                  <td>{String(index + 1).padStart(2, '0')}</td>
+                  <td>{String(indexOfFirstProduct + index + 1).padStart(2, '0')}</td>
                   <td>
                     <img
                       src={productsImage} 
@@ -77,16 +90,18 @@ const Index = () => {
           
           {/* Pagination Section */}
           <div className="d-flex justify-content-between align-items-center mt-4">
-            <p>Showing 1 to 5 of 710 entries</p>
-            <nav>
-              <ul className="pagination">
-                <li className="page-item"><a className="page-link" href="#">1</a></li>
-                <li className="page-item"><a className="page-link" href="#">2</a></li>
-                <li className="page-item"><a className="page-link" href="#">3</a></li>
-                <li className="page-item"><a className="page-link" href="#">4</a></li>
-                <li className="page-item"><a className="page-link" href="#">5</a></li>
-              </ul>
-            </nav>
+            <p>Showing {indexOfFirstProduct + 1} to {Math.min(indexOfLastProduct, products.length)} of {products.length} entries</p>
+            <Pagination>
+              {[...Array(totalPages)].map((_, i) => (
+                <Pagination.Item 
+                  key={i} 
+                  active={i + 1 === currentPage} 
+                  onClick={() => handlePageChange(i + 1)}
+                >
+                  {i + 1}
+                </Pagination.Item>
+              ))}
+            </Pagination>
           </div>
         </div>
       </div>
