@@ -1,10 +1,24 @@
 import React, { useState } from "react";
-import { Button, Form, Row, Col, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  Row,
+  Col,
+  ToggleButtonGroup,
+  ToggleButton,
+  Modal,
+} from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
+import SuccessImage from "../../Data/success.png";
+
 
 const AddProducts = () => {
   const location = useLocation(); // Access the location
   const categories = location.state; // Extract categories from the state
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const handleClose = () => setShowSuccessModal(false);
+  const handleShow = () => setShowSuccessModal(true);
   const [products, setProducts] = useState([
     {
       productName: "",
@@ -119,61 +133,63 @@ const AddProducts = () => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-        const formattedData = {
-            category: categories.category1, // Access category1 from the passed state
-            products: products.map((product) => ({
-                name: product.productName,
-                related_product_name: product.relatedProductName,
-                product_type: product.productType,
-                product_description: product.productDescription,
-                product_spec: product.productSpec,
-                brand_id: product.brand, // Assuming brand is the brand_id
-                product_marketing: product.productMarketing,
-                product_sku: product.productSKU,
-                warranty: product.warranty,
-                return_in: product.returnIn,
-                actual_price: product.actualPrice,
-                display_price: product.displayPrice,
-                referral_amount: product.referralAmount,
-                cashback_amount: product.cashbackAmount,
-                hsn_code: product.hsncode,
-                gst: product.gst,
-                weight: product.weight,
-                length: product.length,
-                width: product.width,
-                attributes: {
-                    display_name: "SIZE", // Replace with actual display name if different
-                    attributes: product.selectedSizes.map((size, index) => ({
-                        attribute_id: size, // Replace with actual attribute IDs
-                        quantity: product.attributes[index]?.quantity || "",
-                        sku: product.attributes[index]?.sku || "",
-                    })),
-                },
+      const formattedData = {
+        category: categories.category1, // Access category1 from the passed state
+        products: products.map((product) => ({
+          name: product.productName,
+          related_product_name: product.relatedProductName,
+          product_type: product.productType,
+          product_description: product.productDescription,
+          product_spec: product.productSpec,
+          brand_id: product.brand, // Assuming brand is the brand_id
+          product_marketing: product.productMarketing,
+          product_sku: product.productSKU,
+          warranty: product.warranty,
+          return_in: product.returnIn,
+          actual_price: product.actualPrice,
+          display_price: product.displayPrice,
+          referral_amount: product.referralAmount,
+          cashback_amount: product.cashbackAmount,
+          hsn_code: product.hsncode,
+          gst: product.gst,
+          weight: product.weight,
+          length: product.length,
+          width: product.width,
+          attributes: {
+            display_name: "SIZE", // Replace with actual display name if different
+            attributes: product.selectedSizes.map((size, index) => ({
+              attribute_id: size, // Replace with actual attribute IDs
+              quantity: product.attributes[index]?.quantity || "",
+              sku: product.attributes[index]?.sku || "",
             })),
-        };
+          },
+        })),
+      };
 
-        console.log("Formatted Data:", formattedData);
+      console.log("Formatted Data:", formattedData);
+      
+      // Create a JSON file and trigger a download
+      const jsonString = JSON.stringify(formattedData, null, 2); // Pretty-printing JSON
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
 
-        // Create a JSON file and trigger a download
-        const jsonString = JSON.stringify(formattedData, null, 2); // Pretty-printing JSON
-        const blob = new Blob([jsonString], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "products.json"; // Name of the file
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url); // Clean up
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "products.json"; // Name of the file
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url); // Clean up
+      handleShow();
     } else {
-        console.log("Form has errors");
+      console.log("Form has errors");
     }
-};
+  };
 
   const handleToggleAttributes = (index) => {
     const updatedProducts = [...products];
-    updatedProducts[index].hasAttributes = !updatedProducts[index].hasAttributes;
+    updatedProducts[index].hasAttributes =
+      !updatedProducts[index].hasAttributes;
     updatedProducts[index].selectedSizes = []; // Reset selected sizes
     setProducts(updatedProducts);
   };
@@ -184,7 +200,9 @@ const AddProducts = () => {
 
     // Add or remove size from the selected sizes
     if (sizes.includes(size)) {
-      updatedProducts[activeProductIndex].selectedSizes = sizes.filter(s => s !== size);
+      updatedProducts[activeProductIndex].selectedSizes = sizes.filter(
+        (s) => s !== size
+      );
     } else {
       updatedProducts[activeProductIndex].selectedSizes.push(size);
     }
@@ -196,12 +214,14 @@ const AddProducts = () => {
     const updatedProducts = [...products];
     const sizesData = updatedProducts[index].selectedSizes;
 
-    
     const sizeIndex = sizesData.indexOf(size);
 
     if (sizeIndex !== -1) {
       if (!updatedProducts[index].attributes[sizeIndex]) {
-        updatedProducts[index].attributes[sizeIndex] = { quantity: "", sku: "" };
+        updatedProducts[index].attributes[sizeIndex] = {
+          quantity: "",
+          sku: "",
+        };
       }
       updatedProducts[index].attributes[sizeIndex][field] = value;
     }
@@ -666,7 +686,6 @@ const AddProducts = () => {
                   onChange={(e) => handleChange(activeProductIndex, e)}
                   isInvalid={!!errors.weight}
                 >
-
                   <option value=""></option>
                   <option value="2 kg">2 kg</option>
                   <option value="3 kg">3 kg</option>
@@ -755,22 +774,30 @@ const AddProducts = () => {
                 </Form.Control.Feedback>
               </Col>
             </Form.Group>
-          
-              {/* Toggle for Attributes */}
-              <Form.Group as={Row} className="mb-3" controlId="hasAttributes">
-              <Form.Label column sm={3}>Has Attributes?</Form.Label>
+
+            {/* Toggle for Attributes */}
+            <Form.Group as={Row} className="mb-3" controlId="hasAttributes">
+              <Form.Label column sm={3}>
+                Has Attributes?
+              </Form.Label>
               <Col sm={9}>
-                <ToggleButtonGroup type="radio" name="hasAttributes" defaultValue={products[activeProductIndex].hasAttributes ? "yes" : "no"}>
-                  <ToggleButton 
-                    id="tbg-radio-1" 
-                    value="yes" 
+                <ToggleButtonGroup
+                  type="radio"
+                  name="hasAttributes"
+                  defaultValue={
+                    products[activeProductIndex].hasAttributes ? "yes" : "no"
+                  }
+                >
+                  <ToggleButton
+                    id="tbg-radio-1"
+                    value="yes"
                     onChange={() => handleToggleAttributes(activeProductIndex)}
                   >
                     Yes
                   </ToggleButton>
-                  <ToggleButton 
-                    id="tbg-radio-2" 
-                    value="no" 
+                  <ToggleButton
+                    id="tbg-radio-2"
+                    value="no"
                     onChange={() => handleToggleAttributes(activeProductIndex)}
                   >
                     No
@@ -790,7 +817,9 @@ const AddProducts = () => {
                         type="checkbox"
                         className="form-check-input"
                         id={size}
-                        checked={products[activeProductIndex].selectedSizes.includes(size)}
+                        checked={products[
+                          activeProductIndex
+                        ].selectedSizes.includes(size)}
                         onChange={() => handleSizeSelection(size)}
                       />
                       <label className="form-check-label" htmlFor={size}>
@@ -800,39 +829,85 @@ const AddProducts = () => {
                   ))}
                 </div>
 
-                {products[activeProductIndex].selectedSizes.map((size, index) => (
-                  <div key={size} className="mt-3">
-                    <Form.Group as={Row} className="mb-3" controlId={`quantity-${size}`}>
-                      <Form.Label column sm={3}>{`${size} Quantity`}</Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="number"
-                          placeholder="Quantity"
-                          value={products[activeProductIndex].attributes[index]?.quantity || ""}
-                          onChange={(e) => handleQuantitySKUChange(activeProductIndex, size, "quantity", e.target.value)}
-                        />
-                      </Col>
-                    </Form.Group>
+                {products[activeProductIndex].selectedSizes.map(
+                  (size, index) => (
+                    <div key={size} className="mt-3">
+                      <Form.Group
+                        as={Row}
+                        className="mb-3"
+                        controlId={`quantity-${size}`}
+                      >
+                        <Form.Label
+                          column
+                          sm={3}
+                        >{`${size} Quantity`}</Form.Label>
+                        <Col sm={9}>
+                          <Form.Control
+                            type="number"
+                            placeholder="Quantity"
+                            value={
+                              products[activeProductIndex].attributes[index]
+                                ?.quantity || ""
+                            }
+                            onChange={(e) =>
+                              handleQuantitySKUChange(
+                                activeProductIndex,
+                                size,
+                                "quantity",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </Col>
+                      </Form.Group>
 
-                    <Form.Group as={Row} className="mb-3" controlId={`sku-${size}`}>
-                      <Form.Label column sm={3}>{`${size} SKU`}</Form.Label>
-                      <Col sm={9}>
-                        <Form.Control
-                          type="text"
-                          placeholder="SKU"
-                          value={products[activeProductIndex].attributes[index]?.sku || ""}
-                          onChange={(e) => handleQuantitySKUChange(activeProductIndex, size, "sku", e.target.value)}
-                        />
-                      </Col>
-                    </Form.Group>
-                  </div>
-                ))}
+                      <Form.Group
+                        as={Row}
+                        className="mb-3"
+                        controlId={`sku-${size}`}
+                      >
+                        <Form.Label column sm={3}>{`${size} SKU`}</Form.Label>
+                        <Col sm={9}>
+                          <Form.Control
+                            type="text"
+                            placeholder="SKU"
+                            value={
+                              products[activeProductIndex].attributes[index]
+                                ?.sku || ""
+                            }
+                            onChange={(e) =>
+                              handleQuantitySKUChange(
+                                activeProductIndex,
+                                size,
+                                "sku",
+                                e.target.value
+                              )
+                            }
+                          />
+                        </Col>
+                      </Form.Group>
+                    </div>
+                  )
+                )}
               </div>
             )}
 
             <Button variant="primary" onClick={handleSubmit}>
               Submit
             </Button>
+              {/* Success Modal */}
+              <Modal show={showSuccessModal} onHide={handleClose} centered>
+                <Modal.Body className="text-center">
+                    <div className="mb-4">
+                        <img src={SuccessImage} alt="Success" width={50} />
+                    </div>
+                    <h5>Product Successfully Added!</h5>
+                    <p>You have successfully added the product. Click continue to go to the dashboard.</p>
+                    <Button variant="primary" onClick={handleClose}>
+                        Continue
+                    </Button>
+                </Modal.Body>
+            </Modal>
           </Form>
         </div>
       </div>
