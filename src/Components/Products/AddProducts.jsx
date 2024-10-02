@@ -11,7 +11,6 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import SuccessImage from "../../Data/success.png";
 
-
 const AddProducts = () => {
   const location = useLocation(); // Access the location
   const categories = location.state; // Extract categories from the state
@@ -134,14 +133,14 @@ const AddProducts = () => {
   const handleSubmit = () => {
     if (validateForm()) {
       const formattedData = {
-        category: categories.category1, // Access category1 from the passed state
+        category: categories.category1,
         products: products.map((product) => ({
           name: product.productName,
           related_product_name: product.relatedProductName,
           product_type: product.productType,
           product_description: product.productDescription,
           product_spec: product.productSpec,
-          brand_id: product.brand, // Assuming brand is the brand_id
+          brand_id: product.brand, 
           product_marketing: product.productMarketing,
           product_sku: product.productSKU,
           warranty: product.warranty,
@@ -156,9 +155,9 @@ const AddProducts = () => {
           length: product.length,
           width: product.width,
           attributes: {
-            display_name: "SIZE", // Replace with actual display name if different
+            display_name: "SIZE", 
             attributes: product.selectedSizes.map((size, index) => ({
-              attribute_id: size, // Replace with actual attribute IDs
+              attribute_id: size, 
               quantity: product.attributes[index]?.quantity || "",
               sku: product.attributes[index]?.sku || "",
             })),
@@ -167,9 +166,8 @@ const AddProducts = () => {
       };
 
       console.log("Formatted Data:", formattedData);
-      
-      // Create a JSON file and trigger a download
-      const jsonString = JSON.stringify(formattedData, null, 2); // Pretty-printing JSON
+
+      const jsonString = JSON.stringify(formattedData, null, 2); 
       const blob = new Blob([jsonString], { type: "application/json" });
       const url = URL.createObjectURL(blob);
 
@@ -301,6 +299,8 @@ const AddProducts = () => {
               <Form.Control
                 type="file"
                 multiple
+                required
+                accept="image/*"
                 onChange={(e) => handleImageUpload(activeProductIndex, e)}
               />
               <div className="mt-3">
@@ -337,6 +337,7 @@ const AddProducts = () => {
             <Col sm={9}>
               <Form.Control
                 type="file"
+                accept="image/*"
                 onChange={(e) => handleCoverImageUpload(activeProductIndex, e)}
               />
             </Col>
@@ -561,7 +562,7 @@ const AddProducts = () => {
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Enter actual price"
                   name="actualPrice"
                   value={products[activeProductIndex].actualPrice}
@@ -581,7 +582,7 @@ const AddProducts = () => {
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Enter display price"
                   name="displayPrice"
                   value={products[activeProductIndex].displayPrice}
@@ -601,7 +602,7 @@ const AddProducts = () => {
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Enter referral amount"
                   name="referralAmount"
                   value={products[activeProductIndex].referralAmount}
@@ -621,7 +622,7 @@ const AddProducts = () => {
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Enter cashback amount"
                   name="cashbackAmount"
                   value={products[activeProductIndex].cashbackAmount}
@@ -677,11 +678,12 @@ const AddProducts = () => {
             {/* Weight */}
             <Form.Group as={Row} className="mb-3" controlId="weight">
               <Form.Label column sm={3}>
-                Weight <span className="text-danger">*</span>
+                Weight(In cm) <span className="text-danger">*</span>
               </Form.Label>
               <Col sm={9}>
                 <Form.Select
                   name="weight"
+                  type="number"
                   value={products[activeProductIndex].weight}
                   onChange={(e) => handleChange(activeProductIndex, e)}
                   isInvalid={!!errors.weight}
@@ -698,11 +700,11 @@ const AddProducts = () => {
             {/* Length */}
             <Form.Group as={Row} className="mb-3" controlId="length">
               <Form.Label column sm={3}>
-                Length <span className="text-danger">*</span>
+                Length(In cm) <span className="text-danger">*</span>
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Enter length"
                   name="length"
                   value={products[activeProductIndex].length}
@@ -718,11 +720,11 @@ const AddProducts = () => {
             {/* Width */}
             <Form.Group as={Row} className="mb-3" controlId="width">
               <Form.Label column sm={3}>
-                Width <span className="text-danger">*</span>
+                Width(In cm) <span className="text-danger">*</span>
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Enter width"
                   name="width"
                   value={products[activeProductIndex].width}
@@ -738,11 +740,11 @@ const AddProducts = () => {
             {/* Height */}
             <Form.Group as={Row} className="mb-3" controlId="height">
               <Form.Label column sm={3}>
-                Height <span className="text-danger">*</span>
+                Height(In cm) <span className="text-danger">*</span>
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Enter height"
                   name="height"
                   value={products[activeProductIndex].height}
@@ -762,7 +764,8 @@ const AddProducts = () => {
               </Form.Label>
               <Col sm={9}>
                 <Form.Control
-                  type="text"
+                  type="number"
+          
                   placeholder="Enter quantity"
                   name="quantity"
                   value={products[activeProductIndex].quantity}
@@ -895,18 +898,24 @@ const AddProducts = () => {
             <Button variant="primary" onClick={handleSubmit}>
               Submit
             </Button>
-              {/* Success Modal */}
-              <Modal show={showSuccessModal} onHide={handleClose} centered>
-                <Modal.Body className="text-center">
-                    <div className="mb-4">
-                        <img src={SuccessImage} alt="Success" width={50} />
-                    </div>
-                    <h5>Product Successfully Added!</h5>
-                    <p>You have successfully added the product. Click continue to go to the dashboard.</p>
-                    <Button variant="primary" onClick={handleClose}>
-                        Continue
-                    </Button>
-                </Modal.Body>
+            {/* Success Modal */}
+            <Modal show={showSuccessModal} onHide={handleClose} centered>
+              <Modal.Body className="text-center">
+                <div className="mb-4">
+                  <img src={SuccessImage} alt="Success" width={50} />
+                </div>
+                <h5>Product Successfully Added!</h5>
+                <p>
+                  You have successfully added the product. Click continue to go
+                  to the dashboard.
+                </p>
+                <Button
+                  variant="primary"
+                  onClick={() => window.location.reload()}
+                >
+                  Continue
+                </Button>
+              </Modal.Body>
             </Modal>
           </Form>
         </div>
